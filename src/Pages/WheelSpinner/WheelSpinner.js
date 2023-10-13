@@ -5,7 +5,7 @@ function DataList() {
     <div>
         <h2>Wheel Spinner</h2>
         
-        <button>Spin</button>
+        <button>Spin 2</button>
         <br/>
         <a href="/">Form</a>
     </div>
