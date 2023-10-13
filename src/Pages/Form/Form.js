@@ -1,64 +1,55 @@
-import React, { useState } from 'react';
+// eslint-disable-next-line
+import React, { useState } from "react";
+import { Container, Stack } from "@mui/material";
+import {
+  AlternateEmailOutlined,
+  PhoneIphoneOutlined,
+  ApartmentOutlined,
+  DoneAllOutlined,
+} from "@mui/icons-material";
 
-function Form() {
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [interests, setInterests] = useState('');
+import DatePickers from "../Components/DatePicker/DatePickers";
+import TextFields from "../Components/TextField/TextFields";
+import Buttons from "../Components/Button/Buttons";
+
+function Form({ icon, text }) {
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [interests, setInterests] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setName('');
-    setAge('');
-    setBirthDate('');
-    setInterests('');
+    setName("");
+    setAge("");
+    setBirthDate("");
+    setInterests("");
   };
 
   return (
-    <div>
-    <h2>Survey Form</h2>
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+    <Container fixed>
+      <Stack spacing={2}>
+        <h2>Survey Form</h2>
+
+        <TextFields label="Full Name" />
+        <DatePickers label="Day of Birth" defaultValue="YY" />
+        <TextFields label="Email" icon={<AlternateEmailOutlined />} />
+        <TextFields label="Phone" icon={<PhoneIphoneOutlined />} />
+        <TextFields label="Position" icon={<ApartmentOutlined />} />
+        <br />
+        <Buttons
+          variant="contained"
+          color="success"
+          text="Submit"
+          endIcon={<DoneAllOutlined />}
+          onClick={() => {
+            alert("clicked");
+          }}
         />
-      </label>
-      <br />
-      <label>
-        Age:
-        <input
-          type="number"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Date of Birth:
-        <input
-          type="date"
-          value={birthDate}
-          onChange={(e) => setBirthDate(e.target.value)}
-        />
-      </label>
-      <br />
-      <label>
-        Interests:
-        <textarea
-          value={interests}
-          onChange={(e) => setInterests(e.target.value)}
-        />
-      </label>
-      <br />
-      <button type="submit">Submit</button>
-    </form>
-    <a href="/datalist">DataList</a>
-    <br/>
-    <a href="/wheelspinner">WheelSpinner</a>
-  </div>
+        <Buttons href="/datalist" text="Data List" />
+        <Buttons href="/wheelspinner" text="Wheel Snipper" />
+      </Stack>
+    </Container>
   );
 }
 
