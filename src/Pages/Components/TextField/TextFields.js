@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Box, TextField, InputAdornment } from "@mui/material";
-import { AccountCircle } from "@mui/icons-material";
+import { TextField, InputAdornment } from "@mui/material";
 
 export default function TextFields({ label, value, onChange, icon }) {
   return (
