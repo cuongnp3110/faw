@@ -49,8 +49,9 @@ function Form({ icon, text }) {
               alert("clicked");
             }}
           />
-          <Buttons href="/datalist" text="Data List" />
-          <Buttons href="/wheelspinner" text="Wheel Snipper" />
+          {/* <Buttons href="/datalist" text="Data List" />
+              <Buttons href="/wheelspinner" text="Wheel Snipper" /> */}
+          <br />
         </Stack>
       </Container>
     </>

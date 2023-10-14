@@ -10,6 +10,7 @@ export default function Buttons({
   color,
   startIcon,
   endIcon,
+  sx,
 }) {
   return (
     <Button
@@ -20,6 +21,7 @@ export default function Buttons({
       color={color}
       startIcon={startIcon}
       endIcon={endIcon}
+      sx={sx}
     >
       {text}
     </Button>
