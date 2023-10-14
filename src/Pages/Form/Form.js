@@ -14,19 +14,6 @@ import TextFields from "../Components/TextField/TextFields";
 import Buttons from "../Components/Button/Buttons";
 
 function Form({ icon, text }) {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [interests, setInterests] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setName("");
-    setAge("");
-    setBirthDate("");
-    setInterests("");
-  };
-
   return (
     <>
       <Banner />
