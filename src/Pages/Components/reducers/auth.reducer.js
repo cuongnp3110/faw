@@ -7,7 +7,6 @@ export const authReducer = (state, action) => {
         ...state,
         isAuthenticated: payload,
       };
-      break; 
 
     default:
       break;

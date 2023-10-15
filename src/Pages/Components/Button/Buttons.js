@@ -11,6 +11,7 @@ export default function Buttons({
   startIcon,
   endIcon,
   sx,
+  type,
 }) {
   return (
     <Button
@@ -22,6 +23,7 @@ export default function Buttons({
       startIcon={startIcon}
       endIcon={endIcon}
       sx={sx}
+      type={type}
     >
       {text}
     </Button>

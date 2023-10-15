@@ -1,7 +1,16 @@
 import * as React from "react";
 import { TextField, InputAdornment } from "@mui/material";
 
-export default function TextFields({ label, value, onChange, icon }) {
+export default function TextFields({
+  label,
+  value,
+  onChange,
+  icon,
+  name,
+  error,
+  helperText,
+  disabled,
+}) {
   return (
     <TextField
       id="outlined-basic"
@@ -13,7 +22,11 @@ export default function TextFields({ label, value, onChange, icon }) {
       label={label}
       value={value}
       onChange={onChange}
+      name={name}
       variant="outlined"
+      error={error}
+      helperText={helperText}
+      disabled={disabled}
     />
   );
 }
