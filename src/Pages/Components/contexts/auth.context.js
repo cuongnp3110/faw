@@ -29,6 +29,16 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${apiURL}/form`);
+      if (response.data.success) return response.data;
+    } catch (error) {
+      if (error.response.data) return error.response.data;
+      else return { success: false, message: error.message };
+    }
+  };
+
   const submitForm = async (Form) => {
     try {
       const response = await axios.post(`${apiURL}/form`, Form);
@@ -40,7 +50,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   //Context data
-  const authContextData = { loginUser, submitForm };
+  const authContextData = { loginUser, submitForm, fetchData };
 
   return (
     <>

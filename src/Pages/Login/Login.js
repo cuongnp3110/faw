@@ -22,7 +22,12 @@ const Login = ({ value, text, label }) => {
     e.preventDefault();
     try {
       const loginData = await loginUser(login);
-      console.log(loginData);
+      if(loginData.success) {
+        sessionStorage.setItem('username', login.username);
+        window.location.assign("/datalist");
+      } else {
+        console.log(loginData.message);
+      }
     } catch (error) {
       console.log(error);
     }
