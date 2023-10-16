@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
@@ -21,6 +21,7 @@ const style = {
 };
 
 export default function TransitionsModal({ open, onClose }) {
+  const[gift, setGift] = useState("");
   const segments = [
     "better luck next time",
     "won 70",
@@ -42,6 +43,7 @@ export default function TransitionsModal({ open, onClose }) {
     "#FF9000",
   ];
   const onFinished = (winner) => {
+    setGift(winner);
     console.log(winner);
   };
 
@@ -68,14 +70,21 @@ export default function TransitionsModal({ open, onClose }) {
               primaryColor="black"
               contrastColor="white"
               buttonText="Spin"
-              isOnlyOnce={false}
-              size={190}
-              upDuration={500}
-              downDuration={2000}
+              isOnlyOnce={true}
+              size={250}
+              upDuration={50}
+              downDuration={500}
               fontFamily="Arial"
             />
+            {gift ? (
+              <Button  
+                color="primary"
+              >Ok</Button>
+            ) : (<></>)}
           </Box>
+          
         </Fade>
+        
       </Modal>
     </Box>
   );

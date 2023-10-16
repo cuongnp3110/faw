@@ -100,6 +100,9 @@ function Form({ icon, text, name }) {
                 <Buttons
                   startIcon={<CardGiftcardOutlined />}
                   onClick={handleOpen}
+                  color="primary"
+                  text="Select Gift"
+                  // style={{border: "1px solid"}}
                 />
               }
               disabled={true}

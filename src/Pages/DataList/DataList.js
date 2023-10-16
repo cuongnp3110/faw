@@ -9,20 +9,7 @@ import "./DataList.css";
 import { authContext } from "../Components/contexts/auth.context";
 import Login from "../Login/Login";
 import AppBars from "../Components/AppBar/AppBar";
-
-
-// const callFetchData = async () => {
-//   try {
-//     const data = await fetchData();
-//     if(data.success) {
-//       return data.forms;
-//     } else {
-//       console.log(data.message);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+import { async } from "q";
 
 function DataList() {
   var userSession = "";
@@ -34,27 +21,27 @@ function DataList() {
 
   const { fetchData } = useContext(authContext);
   // debugger;
-  var fetchedData;
+  let fetchedData;
   
-  // console.log(1);
-  const callFetchData = () => {
+  console.log(1);
+  const callFetchData = async () => {
     try {
-      const data = fetchData();
-      if(data.success) {
-        // fetchedData = data.forms;
-        console.log('Data fetched successfully:', data.forms);
+      fetchedData = await fetchData();
+      if(fetchedData.success) {
+        // return fetchedData.forms;
+        console.log('Data fetched successfully:', fetchedData);
       } else {
-        console.log(data.message);
+        console.log(fetchedData.message);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  callFetchData();
-  // console.log(2);
-  // if(fetchedData) console.log(fetchData)
   
-  // console.log(fetchedData.forms);
+  callFetchData();
+  console.log(2)
+  console.log(fetchedData);
+  
 
   //Columns
   const columns = [
@@ -88,13 +75,8 @@ function DataList() {
     );
   }
 
-  
-
-  const user = true;
   return (
     <div>
-      {user === true ? (
-        <>
           <AppBars />
           <h2 style={{ padding: '10px 24px 0 24px' }}>Username: {userSession}</h2>
           <Container>
@@ -115,10 +97,6 @@ function DataList() {
               />
             </div>
           </Container>
-        </>
-      ) : (
-        <Login />
-      )}
     </div>
   );
 }
