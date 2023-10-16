@@ -30,8 +30,8 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const fetchData = async () => {
+    const response = await axios.get(`${apiURL}/form`);
     try {
-      const response = await axios.get(`${apiURL}/form`);
       if (response.data.success) return response.data;
     } catch (error) {
       if (error.response.data) return error.response.data;
