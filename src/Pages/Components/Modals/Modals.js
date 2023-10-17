@@ -1,13 +1,16 @@
 import React, { Component, useState } from "react";
-import Backdrop from "@mui/material/Backdrop";
+// import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+// import Typography from "@mui/material/Typography";
 
 import WheelComponent from "react-wheel-of-prizes";
+// import WheelComponent from "../Wheel/Wheel";
+
 // import "react-wheel-of-prizes/dist/index.css";
+
 
 const style = {
   position: "absolute",
@@ -20,7 +23,7 @@ const style = {
   p: 4,
 };
 
-export default function TransitionsModal({ open, onClose }) {
+export default function TransitionsModal({ open, onClose, wheelParam  }) {
   const[gift, setGift] = useState("");
   const segments = [
     "better luck next time",
@@ -42,9 +45,14 @@ export default function TransitionsModal({ open, onClose }) {
     "#EC3F3F",
     "#FF9000",
   ];
-  const onFinished = (winner) => {
-    setGift(winner);
-    console.log(winner);
+  const onFinished = (e) => {
+    setGift(e);
+    console.log(e);
+    wheelParam(e);
+  };
+
+  const closeBtn = (e) => {
+    onClose(true);
   };
 
   return (
@@ -60,27 +68,32 @@ export default function TransitionsModal({ open, onClose }) {
           },
         }}
       >
-        <Fade in={open}>
-          <Box sx={style}>
+        <Fade in={open} style={{width: "20%"}}>
+          <Box sx={style} >
             <WheelComponent
+              style={{width: "100%", height: "100%"}}
               segments={segments}
               segColors={segColors}
               //   winningSegment="won 10"
-              onFinished={(winner) => onFinished(winner)}
+              onFinished={(e) => onFinished(e)}
               primaryColor="black"
               contrastColor="white"
               buttonText="Spin"
               isOnlyOnce={true}
-              size={250}
-              upDuration={50}
+              size={150}
+              upDuration={200}
               downDuration={500}
               fontFamily="Arial"
             />
-            {gift ? (
-              <Button  
-                color="primary"
-              >Ok</Button>
-            ) : (<></>)}
+              {gift ? (
+                <Button 
+                  style={{width:"100%"}}
+                  variant="contained"
+                  onClick={closeBtn} 
+                  color="primary"
+                >Ok</Button>
+              ) : (<></>)}
+            
           </Box>
           
         </Fade>
