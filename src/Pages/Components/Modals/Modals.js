@@ -1,16 +1,10 @@
-import React, { Component, useState } from "react";
-// import Backdrop from "@mui/material/Backdrop";
+import React, { useState, useContext} from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
-// import Typography from "@mui/material/Typography";
-
-// import WheelComponent from 'react-wheel-of-prizes';
-// import 'react-wheel-of-prizes/dist/index.css';
 import WheelComponent from "./Wheel";
-
-// import "react-wheel-of-prizes/dist/index.css";
+import { authContext } from "../contexts/auth.context";
 
 
 const style = {
@@ -26,8 +20,8 @@ const style = {
   alignContent: "center"
 };
 
-export default function TransitionsModal({ open, onClose, wheelParam  }) {
-  const[gift, setGift] = useState("");
+export default function TransitionsModal({ open, onClose, wheelParam, transferData  }) {
+  const[buttonStatus, setButtonStatus] = useState(false);
   const segments = [
     "better luck next time",
     "won 70",
@@ -48,16 +42,39 @@ export default function TransitionsModal({ open, onClose, wheelParam  }) {
     "#EC3F3F",
     "#FF9000",
   ];
+  let data = JSON.parse(JSON.stringify(transferData, null, 2));
+  const [form, setForm] = useState({
+    fullName: "",
+    dob: "",
+    email: "",
+    phone: "",
+    position: "",
+    gift: "",
+  });
+  const { submitForm } = useContext(authContext);
   const onFinished = (e) => {
-    setGift(e);
-    console.log(e);
+    setButtonStatus(true);
+    setForm({ ...form, fullName: data.fullName});
+    setForm({ ...form, dob: data.dob});
+    setForm({ ...form, email: data.email});
+    setForm({ ...form, phone: data.phone});
+    setForm({ ...form, position: data.position});
+    setForm({ ...form, gift: e});
     wheelParam(e);
   };
-
-  const closeBtn = (e) => {
+  
+  const closeBtn = async (e) => {
+    try {
+      const formData = await submitForm(form);
+      if(formData.success) console.log(formData.message);
+      else console.log(formData.message);
+      console.log(formData);
+    } catch (error) {
+      console.log(error);
+    }
     onClose(true);
   };
-
+  
   return (
     <Box>
       <Modal
@@ -87,9 +104,8 @@ export default function TransitionsModal({ open, onClose, wheelParam  }) {
               upDuration={200}
               downDuration={500}
               fontFamily="Arial"
-              
             />
-              {gift ? (
+              {buttonStatus ? (
                 <Button 
                   className="btn"
                   style={{width:"70%", alignContent:"center", marginLeft:"15%"}}
@@ -98,11 +114,8 @@ export default function TransitionsModal({ open, onClose, wheelParam  }) {
                   color="primary"
                 >Ok</Button>
               ) : (<></>)}
-            
           </Box>
-          
         </Fade>
-        
       </Modal>
     </Box>
   );
