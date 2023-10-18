@@ -5,7 +5,7 @@ export default function Buttons({
   text,
   disabled,
   href,
-  variant,
+  variants,
   onClick,
   color,
   startIcon,
@@ -15,7 +15,7 @@ export default function Buttons({
 }) {
   return (
     <Button
-      variant={variant}
+      variant={variants}
       disable={disabled}
       href={href}
       onClick={onClick}

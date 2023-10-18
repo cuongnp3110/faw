@@ -1,6 +1,6 @@
 // eslint-disable-next-line
-import React, { useState, useContext } from "react";
-import { Container, Stack, Button } from "@mui/material";
+import React, { useState, useEffect, useContext } from "react";
+import { Container, Stack } from "@mui/material";
 import {
   AlternateEmailOutlined,
   PhoneIphoneOutlined,
@@ -10,10 +10,11 @@ import {
   CelebrationOutlined,
   ContactEmergencyOutlined,
 } from "@mui/icons-material";
+import Button from "@mui/material/Button";
 
 import Banner from "../Banner/Banner";
 import TextFields from "../Components/TextField/TextFields";
-import Buttons from "../Components/Button/Buttons";
+// import Buttons from "../Components/Button/Buttons";
 import TransitionsModal from "../Components/Modals/Modals";
 import { authContext } from "../Components/contexts/auth.context";
 
@@ -35,16 +36,42 @@ function Form({ icon, text, name }) {
 
   const { fullName, dob, email, phone, position, gift } = form;
 
-  const handleSubmit = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleSubmit = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const getPropWheelValue = (e) => setForm({ ...form, gift: e});
+
+  const [buttonStatus, setButtonStatus] = useState(true);
+  useEffect(() => {
+    if (form.fullName === "" ||
+        form.dob === "" || 
+        form.email === "" || 
+        form.phone === "" || 
+        form.position === "" || 
+        form.gift === "") {
+      setButtonStatus(true);
+    } else {
+      setButtonStatus(false);
+    }
+  },[form]);
 
   const loginForm = async (e) => {
     e.preventDefault();
-    try {
-      const formData = await submitForm(form);
-      console.log(formData);
-    } catch (error) {
-      console.log(error);
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    const phoneNumberRegex = /^[0-9]{10}$/;
+    const onlyText = /\D/;
+    if(!onlyText.test(form.fullName)){
+      alert("Invalid Name");
+    } else if(!emailRegex.test(form.email)){
+      alert("Invalid Email");
+    } else if(!phoneNumberRegex.test(form.phone)){
+      alert("Invalid Phone Number");
+    } else {
+      try {
+        const formData = await submitForm(form);
+        console.log(formData);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -93,34 +120,28 @@ function Form({ icon, text, name }) {
               onChange={handleSubmit}
               value={position}
             />
-            <TextFields
-              name="gift"
-              label="Gift"
-              icon={
-                <Buttons
+            <Button
+                  style={{width: '100%', height: '56px'}}
                   startIcon={<CardGiftcardOutlined />}
-                  onClick={handleOpen}
+                  onClick={form.gift ? () => {} : handleOpen}
                   color="primary"
                   text="Select Gift"
-                  // style={{border: "1px solid"}}
-                />
-              }
-              disabled={true}
-              onChange={handleSubmit}
-              value={gift}
-            />
+                  variant="contained"
+                >{form.gift ? "Prize: " + form.gift : "Spinning the wheel to get the gift"}</Button>
             <br />
-            <Buttons
-              variant="text"
+            <Button
               type="submit"
               text="Submit"
               color="success"
               variant="contained"
+              disabled={buttonStatus}
               endIcon={<DoneAllOutlined />}
-            />
+            >Submit
+            </Button>
+
             <br />
 
-            <TransitionsModal open={open} onClose={handleClose} />
+            <TransitionsModal open={open} onClose={handleClose} wheelParam={getPropWheelValue}/>
           </Stack>
         </Container>
       </form>
