@@ -6,8 +6,9 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 // import Typography from "@mui/material/Typography";
 
-import WheelComponent from "react-wheel-of-prizes";
-// import WheelComponent from "../Wheel/Wheel";
+// import WheelComponent from 'react-wheel-of-prizes';
+// import 'react-wheel-of-prizes/dist/index.css';
+import WheelComponent from "./Wheel";
 
 // import "react-wheel-of-prizes/dist/index.css";
 
@@ -17,10 +18,12 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  minWidth: "70%",
+  minWidth: "5%",
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
+  borderRadius: "15px",
+  alignContent: "center"
 };
 
 export default function TransitionsModal({ open, onClose, wheelParam  }) {
@@ -68,26 +71,28 @@ export default function TransitionsModal({ open, onClose, wheelParam  }) {
           },
         }}
       >
-        <Fade in={open} style={{width: "20%"}}>
-          <Box sx={style} >
+        <Fade in={open} 
+        style={{width: "", height: "", padding: ""}}
+        >
+          <Box className="box" sx={style}>
             <WheelComponent
-              style={{width: "100%", height: "100%"}}
               segments={segments}
               segColors={segColors}
-              //   winningSegment="won 10"
               onFinished={(e) => onFinished(e)}
               primaryColor="black"
               contrastColor="white"
               buttonText="Spin"
               isOnlyOnce={true}
-              size={150}
+              size={180}
               upDuration={200}
               downDuration={500}
               fontFamily="Arial"
+              
             />
               {gift ? (
                 <Button 
-                  style={{width:"100%"}}
+                  className="btn"
+                  style={{width:"70%", alignContent:"center", marginLeft:"15%"}}
                   variant="contained"
                   onClick={closeBtn} 
                   color="primary"

@@ -68,6 +68,8 @@ function Form({ icon, text, name }) {
     } else {
       try {
         const formData = await submitForm(form);
+        if(formData.success) alert(formData.message);
+        else alert(formData.message);
         console.log(formData);
       } catch (error) {
         console.log(error);
@@ -121,13 +123,13 @@ function Form({ icon, text, name }) {
               value={position}
             />
             <Button
-                  style={{width: '100%', height: '56px'}}
-                  startIcon={<CardGiftcardOutlined />}
-                  onClick={form.gift ? () => {} : handleOpen}
-                  color="primary"
-                  text="Select Gift"
-                  variant="contained"
-                >{form.gift ? "Prize: " + form.gift : "Spinning the wheel to get the gift"}</Button>
+              style={{width: '100%', height: '56px'}}
+              startIcon={<CardGiftcardOutlined />}
+              onClick={form.gift ? () => {} : handleOpen}
+              color="primary"
+              text="Select Gift"
+              variant="contained"
+            >{form.gift ? "Prize: " + form.gift : "Spinning the wheel to get the gift"}</Button>                     
             <br />
             <Button
               type="submit"
