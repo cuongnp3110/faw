@@ -132,7 +132,7 @@ function Form({ icon, text, name }) {
               icon={<PhoneIphoneOutlined />}
               onChange={handleSubmit}
               value={phone}
-              placeholder="xxxxxxxxxxx (11 digits)"
+              placeholder="xxxxxxxxxxx (10 digits)"
               disabled={wheeled}
             />
             <TextFields
