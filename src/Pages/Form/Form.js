@@ -39,7 +39,7 @@ function Form({ icon, text, name }) {
   const { fullName, dob, email, phone, position } = form;
 
   const handleSubmit = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-  const getPropWheelValue = (e) => setWheeled(e);;
+  const getPropWheelValue = (e) => setWheeled(e);
 
   useEffect(() => {
     if (form.fullName === "" ||
@@ -110,7 +110,7 @@ function Form({ icon, text, name }) {
             {/* Config datepicker */}
             <TextFields
               name="dob"
-              label={`Email ${errorDob}`}
+              label={`Date of Birth ${errorDob}`}
               icon={<CelebrationOutlined />}
               onChange={handleSubmit}
               value={dob}
