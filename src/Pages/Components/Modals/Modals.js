@@ -19,12 +19,7 @@ const style = {
   alignContent: "center",
 };
 
-export default function TransitionsModal({
-  open,
-  onClose,
-  wheelParam,
-  transferData,
-}) {
+export default function TransitionsModal({open, onClose, wheelParam, transferData}) {
   const [buttonStatus, setButtonStatus] = useState(false);
   const segments = [
     "Móc khóa xinh",
@@ -35,6 +30,10 @@ export default function TransitionsModal({
     "Voucher FPT Shop",
     "Voucher FSB 30%",
     "Túi vải",
+  ];
+  const segments2 = [
+    "Móc khóa xinh",
+    "Voucher FSB 20%",
   ];
   const segColors = [
     "#EE4040",
@@ -47,32 +46,52 @@ export default function TransitionsModal({
     "#FF9000",
   ];
   let data = JSON.parse(JSON.stringify(transferData, null, 2));
-  const [form, setForm] = useState({
-    fullName: "",
-    dob: "",
-    email: "",
-    phone: "",
-    position: "",
-    gift: "",
-  });
+  const [gift, setGift] = useState("");
+  const form = {
+    fullName: transferData.fullName,
+    dob: transferData.dob,
+    email: transferData.email,
+    phone: transferData.phone,
+    position: transferData.position,
+    gift: gift,
+  };
+
+  // const [form, setForm] = useState({
+  //   fullName: data.fullName,
+  //   dob: data.dob,
+  //   email: data.email,
+  //   phone: data.phone,
+  //   position: data.position,
+  //   gift: "",
+  // });
+  
+
+  // useEffect( () => {
+  //   const formData = {
+  //     fullName: transferData.fullName,
+  //     dob: transferData.dob,
+  //     email: transferData.email,
+  //     phone: transferData.phone,
+  //     position: transferData.position,
+  //     gift: "",
+  //   };
+  //   setForm(formData);
+  // },[form]);
+  
   const { submitForm } = useContext(authContext);
   const onFinished = (e) => {
     setButtonStatus(true);
-    setForm({ ...form, fullName: data.fullName });
-    setForm({ ...form, dob: data.dob });
-    setForm({ ...form, email: data.email });
-    setForm({ ...form, phone: data.phone });
-    setForm({ ...form, position: data.position });
-    setForm({ ...form, gift: e });
+    setGift(e);
+    console.log(JSON.stringify(form));
     wheelParam(e);
   };
 
   const closeBtn = async (e) => {
     try {
+      // console.log(JSON.stringify(form, null, 2));
       const formData = await submitForm(form);
       if (formData.success) console.log(formData.message);
       else console.log(formData.message);
-      console.log(formData);
     } catch (error) {
       console.log(error);
     }
@@ -98,6 +117,7 @@ export default function TransitionsModal({
               segments={segments}
               segColors={segColors}
               onFinished={(e) => onFinished(e)}
+              winningSegment={segments}
               primaryColor="black"
               contrastColor="white"
               buttonText="Spin"
