@@ -134,7 +134,7 @@ export default function TransitionsModal({open, onClose, wheelParam, transferDat
               primaryColor="black"
               contrastColor="white"
               buttonText="Spin"
-              isOnlyOnce={false}
+              isOnlyOnce={true}
               size={180}
               upDuration={200}
               downDuration={500}
