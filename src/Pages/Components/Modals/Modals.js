@@ -56,45 +56,22 @@ export default function TransitionsModal({open, onClose, wheelParam, transferDat
     gift: gift,
   };
 
-  // const [form, setForm] = useState({
-  //   fullName: data.fullName,
-  //   dob: data.dob,
-  //   email: data.email,
-  //   phone: data.phone,
-  //   position: data.position,
-  //   gift: "",
-  // });
-  
-
-  // useEffect( () => {
-  //   const formData = {
-  //     fullName: transferData.fullName,
-  //     dob: transferData.dob,
-  //     email: transferData.email,
-  //     phone: transferData.phone,
-  //     position: transferData.position,
-  //     gift: "",
-  //   };
-  //   setForm(formData);
-  // },[form]);
-  
   const { submitForm } = useContext(authContext);
-  const onFinished = (e) => {
+  const onFinished = async (e) => {
     setButtonStatus(true);
     setGift(e);
     console.log(JSON.stringify(form));
     wheelParam(e);
-  };
-
-  const closeBtn = async (e) => {
     try {
-      // console.log(JSON.stringify(form, null, 2));
       const formData = await submitForm(form);
       if (formData.success) console.log(formData.message);
       else console.log(formData.message);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const closeBtn = (e) => {
     onClose(true);
   };
 
