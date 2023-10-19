@@ -10,6 +10,7 @@ export default function TextFields({
   error,
   helperText,
   disabled,
+  placeholder
 }) {
   return (
     <TextField
@@ -27,6 +28,7 @@ export default function TextFields({
       error={error}
       helperText={helperText}
       disabled={disabled}
+      placeholder={placeholder}
     />
   );
 }

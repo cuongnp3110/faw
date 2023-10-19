@@ -1,15 +1,10 @@
-import React, { Component, useState } from "react";
-// import Backdrop from "@mui/material/Backdrop";
+import React, { useState, useContext} from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
-// import Typography from "@mui/material/Typography";
-
-import WheelComponent from "react-wheel-of-prizes";
-// import WheelComponent from "../Wheel/Wheel";
-
-// import "react-wheel-of-prizes/dist/index.css";
+import WheelComponent from "./Wheel";
+import { authContext } from "../contexts/auth.context";
 
 
 const style = {
@@ -17,14 +12,16 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  minWidth: "70%",
+  minWidth: "5%",
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
+  borderRadius: "15px",
+  alignContent: "center"
 };
 
-export default function TransitionsModal({ open, onClose, wheelParam  }) {
-  const[gift, setGift] = useState("");
+export default function TransitionsModal({ open, onClose, wheelParam, transferData  }) {
+  const[buttonStatus, setButtonStatus] = useState(false);
   const segments = [
     "better luck next time",
     "won 70",
@@ -45,16 +42,39 @@ export default function TransitionsModal({ open, onClose, wheelParam  }) {
     "#EC3F3F",
     "#FF9000",
   ];
+  let data = JSON.parse(JSON.stringify(transferData, null, 2));
+  const [form, setForm] = useState({
+    fullName: "",
+    dob: "",
+    email: "",
+    phone: "",
+    position: "",
+    gift: "",
+  });
+  const { submitForm } = useContext(authContext);
   const onFinished = (e) => {
-    setGift(e);
-    console.log(e);
+    setButtonStatus(true);
+    setForm({ ...form, fullName: data.fullName});
+    setForm({ ...form, dob: data.dob});
+    setForm({ ...form, email: data.email});
+    setForm({ ...form, phone: data.phone});
+    setForm({ ...form, position: data.position});
+    setForm({ ...form, gift: e});
     wheelParam(e);
   };
-
-  const closeBtn = (e) => {
+  
+  const closeBtn = async (e) => {
+    try {
+      const formData = await submitForm(form);
+      if(formData.success) console.log(formData.message);
+      else console.log(formData.message);
+      console.log(formData);
+    } catch (error) {
+      console.log(error);
+    }
     onClose(true);
   };
-
+  
   return (
     <Box>
       <Modal
@@ -68,36 +88,34 @@ export default function TransitionsModal({ open, onClose, wheelParam  }) {
           },
         }}
       >
-        <Fade in={open} style={{width: "20%"}}>
-          <Box sx={style} >
+        <Fade in={open} 
+        style={{width: "", height: "", padding: ""}}
+        >
+          <Box className="box" sx={style}>
             <WheelComponent
-              style={{width: "100%", height: "100%"}}
               segments={segments}
               segColors={segColors}
-              //   winningSegment="won 10"
               onFinished={(e) => onFinished(e)}
               primaryColor="black"
               contrastColor="white"
               buttonText="Spin"
               isOnlyOnce={true}
-              size={150}
+              size={180}
               upDuration={200}
               downDuration={500}
               fontFamily="Arial"
             />
-              {gift ? (
+              {buttonStatus ? (
                 <Button 
-                  style={{width:"100%"}}
+                  className="btn"
+                  style={{width:"70%", alignContent:"center", marginLeft:"15%"}}
                   variant="contained"
                   onClick={closeBtn} 
                   color="primary"
                 >Ok</Button>
               ) : (<></>)}
-            
           </Box>
-          
         </Fade>
-        
       </Modal>
     </Box>
   );
