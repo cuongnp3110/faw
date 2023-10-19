@@ -61,30 +61,30 @@ function Form({ icon, text, name }) {
     const phoneNumberRegex = /^[0-9]{10}$/;
     var valid = true;
     
-    if(!onlyText.test(form.fullName)){
-      setErrorName("| MESSAGE: INVALID NAME");
-      valid = false;
-    } else {
-      setErrorName("");
-    }
-    if(!datePattern.test(form.dob)){
-      setErrorDob("| MESSAGE: INVALID DATE OF BIRTH");
-      valid = false;
-    } else {
-      setErrorDob("");
-    }
-    if(!emailRegex.test(form.email)){
-      setErrorEmail("| MESSAGE: INVALID EMAIL");
-      valid = false;
-    } else {
-      setErrorEmail("");
-    }
-    if(!phoneNumberRegex.test(form.phone)){
-      setErrorPhone("| MESSAGE: INVALID PHONE NUMBER");
-      valid = false;
-    }  else {
-      setErrorPhone("");
-    }
+    // if(!onlyText.test(form.fullName)){
+    //   setErrorName("| MESSAGE: INVALID NAME");
+    //   valid = false;
+    // } else {
+    //   setErrorName("");
+    // }
+    // if(!datePattern.test(form.dob)){
+    //   setErrorDob("| MESSAGE: INVALID DATE OF BIRTH");
+    //   valid = false;
+    // } else {
+    //   setErrorDob("");
+    // }
+    // if(!emailRegex.test(form.email)){
+    //   setErrorEmail("| MESSAGE: INVALID EMAIL");
+    //   valid = false;
+    // } else {
+    //   setErrorEmail("");
+    // }
+    // if(!phoneNumberRegex.test(form.phone)){
+    //   setErrorPhone("| MESSAGE: INVALID PHONE NUMBER");
+    //   valid = false;
+    // }  else {
+    //   setErrorPhone("");
+    // }
     if(valid) {
       setOpen(true);
     }

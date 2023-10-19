@@ -26,15 +26,11 @@ export default function TransitionsModal({open, onClose, wheelParam, transferDat
     "Voucher FSB 20%",
     "Ly nước FSB",
     "Voucher FSB 25%",
-    "Voucher New Windowns",
+    "Voucher New Windows",
     "Voucher FPT Shop",
     "Voucher FSB 30%",
     "Túi vải",
   ];
-  // const segments2 = [
-  //   "Móc khóa xinh",
-  //   "Voucher FSB 20%",
-  // ];
   const segColors = [
     "#EE4040",
     "#F0CF50",
@@ -45,6 +41,49 @@ export default function TransitionsModal({open, onClose, wheelParam, transferDat
     "#EC3F3F",
     "#FF9000",
   ];
+  const randList = [
+    [
+      "Túi vải",
+      "Ly nước FSB",
+      "Voucher FSB 30%",
+      "Voucher FSB 25%",
+      "Voucher FSB 20%",
+      "Voucher New Windows",
+      "Voucher FPT Shop",
+      "Móc khóa xinh",
+    ], [
+      3,
+      5,
+      94,
+      47,
+      70,
+      20,
+      20,
+      120,
+    ]
+  ];
+
+  function calculateItemProbabilities(arr) {
+    const quantities = arr;
+    const totalQuantity = quantities.reduce((acc, quantity) => acc + quantity, 0);
+    const itemProbabilities = quantities.map(quantity => (quantity / totalQuantity));
+    return itemProbabilities;
+  }
+
+
+  function getRandomElementWithProbability(arr, probabilities) {
+    if (arr.length !== probabilities.length) throw new Error("Số lượng phần tử trong mảng và mảng xác suất phải giống nhau");
+    const totalProbability = probabilities.reduce((acc, prob) => acc + prob, 0);
+    const randomValue = Math.random() * totalProbability;
+    let cumulativeProbability = 0;
+    for (let i = 0; i < arr.length; i++) {
+      cumulativeProbability += probabilities[i];
+      if (randomValue < cumulativeProbability) {
+          return arr[i];
+      }
+    }
+  }
+
 
   const { submitForm } = useContext(authContext);
   const onFinished = async (e) => {
@@ -91,11 +130,11 @@ export default function TransitionsModal({open, onClose, wheelParam, transferDat
               segments={segments}
               segColors={segColors}
               onFinished={(e) => onFinished(e)}
-              winningSegment={segments}
+              winningSegment={getRandomElementWithProbability(randList[0], calculateItemProbabilities(randList[1]))}
               primaryColor="black"
               contrastColor="white"
               buttonText="Spin"
-              isOnlyOnce={true}
+              isOnlyOnce={false}
               size={180}
               upDuration={200}
               downDuration={500}
