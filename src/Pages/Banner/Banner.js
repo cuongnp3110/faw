@@ -1,6 +1,6 @@
 import React from "react";
 import "./banner.css";
-import FSB from "../../assets/FSB.png";
+import FSB from "../../assets/banners.jpg";
 const Banner = () => {
   return (
     <div>
