@@ -31,10 +31,10 @@ export default function TransitionsModal({open, onClose, wheelParam, transferDat
     "Voucher FSB 30%",
     "Túi vải",
   ];
-  const segments2 = [
-    "Móc khóa xinh",
-    "Voucher FSB 20%",
-  ];
+  // const segments2 = [
+  //   "Móc khóa xinh",
+  //   "Voucher FSB 20%",
+  // ];
   const segColors = [
     "#EE4040",
     "#F0CF50",
@@ -45,23 +45,20 @@ export default function TransitionsModal({open, onClose, wheelParam, transferDat
     "#EC3F3F",
     "#FF9000",
   ];
-  let data = JSON.parse(JSON.stringify(transferData, null, 2));
-  const [gift, setGift] = useState("");
-  const form = {
-    fullName: transferData.fullName,
-    dob: transferData.dob,
-    email: transferData.email,
-    phone: transferData.phone,
-    position: transferData.position,
-    gift: gift,
-  };
 
   const { submitForm } = useContext(authContext);
   const onFinished = async (e) => {
     setButtonStatus(true);
-    setGift(e);
-    console.log(JSON.stringify(form));
     wheelParam(e);
+    const form = {
+      fullName: transferData.fullName,
+      dob: transferData.dob,
+      email: transferData.email,
+      phone: transferData.phone,
+      position: transferData.position,
+      gift: e,
+    };
+    console.log(JSON.stringify(form));
     try {
       const formData = await submitForm(form);
       if (formData.success) console.log(formData.message);
